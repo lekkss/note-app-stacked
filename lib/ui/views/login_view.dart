@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/ui/shared/app_colors.dart';
+import 'package:note_app/ui/shared/ui_helpers.dart';
 import 'package:note_app/ui/widgets/app_text.dart';
+import 'package:note_app/ui/widgets/input.dart';
 import 'package:note_app/viewmodels/application_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -30,88 +33,106 @@ class _LoginViewState extends State<LoginView> {
             title: const Text("Hello"),
           ),
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter something';
-                          }
-                          return null;
-                        },
-                        controller: _emailController,
-                        decoration: const InputDecoration(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 12,
+                right: 12,
+              ),
+              child: Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Input(
+                          textController: _emailController,
                           hintText: "Email",
+                          borderRadius: 25,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter Email';
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter something';
-                          }
-                          return null;
-                        },
-                        controller: _passwordController,
-                        decoration: const InputDecoration(
+                        verticalSpaceLarge,
+                        Input(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter Password';
+                            }
+                            return null;
+                          },
+                          borderRadius: 25,
                           hintText: "Password",
+                          textController: _passwordController,
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: Colors.red,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: MaterialButton(
-                            child: model.isBusy
-                                ? const CircularProgressIndicator(
-                                    color: Colors.blue,
-                                  )
-                                : AppText.headingThree(
-                                    "Login",
-                                  ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                debugPrint("gone");
-
-                                model.login(_emailController.text,
-                                    _passwordController.text);
-                              }
-                            }),
-                      ),
-                      Container(
-                        child: model.isBusy
-                            ? const Text("getting")
-                            : !model.isLoggedIn()
-                                ? const Text("not usee")
-                                : const Text("got"),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: Colors.red,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: MaterialButton(
-                            child: AppText.headingThree(
-                              "Signup",
+                        verticalSpaceLarge,
+                        verticalSpaceLarge,
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(
+                              width: 3,
+                              color: primaryColor,
                             ),
-                            onPressed: () {
-                              model.to("signup", replace: true);
-                            }),
-                      ),
-                    ],
+                            color: primaryColor,
+                          ),
+                          child: MaterialButton(
+                              child: model.isBusy
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.blue,
+                                    )
+                                  : const Text(
+                                      "login",
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.white),
+                                    ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  debugPrint("gone");
+
+                                  model.login(_emailController.text,
+                                      _passwordController.text);
+                                }
+                              }),
+                        ),
+                        // Container(
+                        //   child: model.isBusy
+                        //       ? const Text("getting")
+                        //       : !model.isLoggedIn()
+                        //           ? const Text("not usee")
+                        //           : const Text("got"),
+                        // ),
+                        verticalSpaceLarge,
+                        const Text("Already have an account? "),
+                        verticalSpaceMedium,
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 3,
+                              color: primaryColor,
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: MaterialButton(
+                              child: const Text(
+                                "signup",
+                                style: TextStyle(
+                                    fontSize: 16, color: primaryColor),
+                              ),
+                              onPressed: () {
+                                model.to("signup", replace: true);
+                              }),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

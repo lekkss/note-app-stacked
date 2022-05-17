@@ -3,15 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:note_app/locator.dart';
 import 'package:note_app/models/user.dart';
 import 'package:note_app/services/navigation_services.dart';
-import 'package:note_app/ui/views/home.dart';
+import 'package:note_app/ui/views/create_post.dart';
 import 'package:note_app/ui/views/login_view.dart';
-import 'package:note_app/viewmodels/base_model.dart';
+import 'package:note_app/ui/views/home.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-import '../services/dialog_service.dart';
 import '../services/firestore_service.dart';
 import '../ui/views/signup_view.dart';
 
-class AppplicationViewModel extends BaseModel {
+class AppplicationViewModel extends BaseViewModel {
   final MyNavigationServices _navService = locator<MyNavigationServices>();
   final FireStoreService _fireStoreService = locator<FireStoreService>();
   final DialogService _dialogService = locator<DialogService>();
@@ -38,7 +39,7 @@ class AppplicationViewModel extends BaseModel {
           lastName: lastName);
 
       await _fireStoreService.createUser(_currentUser!);
-      to("home", replace: true);
+      to("post", replace: true);
       notifyListeners();
       return authResult.user != null;
     } on FirebaseException catch (e) {
@@ -57,7 +58,7 @@ class AppplicationViewModel extends BaseModel {
       await _populateCurrentUser(authResult.user!);
       setBusy(false);
 
-      to("home", replace: true);
+      to("post", replace: true);
 
       notifyListeners();
       return authResult != null;
@@ -81,6 +82,9 @@ class AppplicationViewModel extends BaseModel {
 
   Future handleSplashLogic() async {
     Future.delayed(const Duration(seconds: 3), () async {
+      if (!isLoggedIn()) {
+        to("home", replace: true);
+      }
       to("login", replace: true);
       notifyListeners();
     });
@@ -90,9 +94,12 @@ class AppplicationViewModel extends BaseModel {
     String? toRoute;
 
     switch (route) {
-      // case "home":
-      //   toRoute = HomeView.routName;
-      //   break;
+      case "post":
+        toRoute = PostHomeView.routName;
+        break;
+      case "home":
+        toRoute = HomeView.routName;
+        break;
       case "login":
         toRoute = LoginView.routName;
         break;

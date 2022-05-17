@@ -18,7 +18,7 @@ class Input extends StatelessWidget {
   final int minLines;
   final TextInputAction keyboardAction;
   final FocusNode? focusNode;
-  final String Function(String?)? validator;
+  final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
   final void Function()? onTap;
   final void Function(String?)? onChanged;

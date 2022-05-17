@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^2.0.0
   stacked: ^2.3.6
   stacked_services: ^0.8.13
+  shared_preferences:
 
   get_it: ^7.2.0
 

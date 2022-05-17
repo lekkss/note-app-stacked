@@ -106,7 +106,6 @@ class _SignupViewState extends State<SignupView> {
                                     _passwordController.text,
                                     _fNameController.text,
                                     _lNameController.text);
-                                model.to("login");
                               } else {
                                 debugPrint("not ok");
                               }
