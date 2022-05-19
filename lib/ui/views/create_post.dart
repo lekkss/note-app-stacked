@@ -6,15 +6,15 @@ import 'package:stacked/stacked.dart';
 import '../../locator.dart';
 import '../widgets/app_text.dart';
 
-class HomeView extends StatefulWidget {
-  static const routName = "/home";
-  const HomeView({Key? key}) : super(key: key);
+class CreatePostView extends StatefulWidget {
+  static const routName = "/createPost";
+  const CreatePostView({Key? key}) : super(key: key);
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<CreatePostView> createState() => _CreatePostViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _CreatePostViewState extends State<CreatePostView> {
   Post? editingPost;
   final _formKey = GlobalKey<FormState>();
 

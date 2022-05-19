@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/ui/shared/app_colors.dart';
 import 'package:note_app/ui/shared/ui_helpers.dart';
-import 'package:note_app/ui/widgets/app_text.dart';
 import 'package:note_app/ui/widgets/input.dart';
 import 'package:note_app/viewmodels/application_view_model.dart';
 import 'package:stacked/stacked.dart';

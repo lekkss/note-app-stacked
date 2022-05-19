@@ -74,11 +74,11 @@ class FireStoreService {
         return postDocumentSnapshot.docs
             .map((snapshot) => Post.fromMap(
                 snapshot.data() as Map<String, dynamic>, snapshot.id))
-            .where((mappedItem) => mappedItem!.title != null)
+            .where((mappedItem) => mappedItem?.title != null)
             .toList();
       }
     } catch (e) {
-      // TODO: Find or create a way to repeat error handling without so much repeated code
+      //Find or create a way to repeat error handling without so much repeated code
       if (e is PlatformException) {
         return e.message;
       }

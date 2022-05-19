@@ -12,6 +12,6 @@ var appRoutes = <String, WidgetBuilder>{
   //App routes
   LoginView.routName: (ctx) => const LoginView(),
   SignupView.routName: (ctx) => const SignupView(),
+  CreatePostView.routName: (ctx) => const CreatePostView(),
   HomeView.routName: (ctx) => const HomeView(),
-  PostHomeView.routName: (ctx) => const PostHomeView(),
 };

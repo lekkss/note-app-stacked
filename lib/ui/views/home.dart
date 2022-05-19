@@ -3,10 +3,10 @@ import 'package:note_app/ui/shared/app_colors.dart';
 import 'package:note_app/viewmodels/home_view_model.dart';
 import 'package:stacked/stacked.dart';
 
-class PostHomeView extends StatelessWidget {
-  static const routName = "/posthome";
+class HomeView extends StatelessWidget {
+  static const routName = "/home";
 
-  const PostHomeView({Key? key}) : super(key: key);
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

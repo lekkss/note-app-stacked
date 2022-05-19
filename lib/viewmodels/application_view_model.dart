@@ -20,6 +20,8 @@ class AppplicationViewModel extends BaseViewModel {
   Users? get currentUser => _currentUser;
   final auth = FirebaseAuth.instance;
   bool isLoggedIn() {
+    print(auth.currentUser.toString());
+    print(_currentUser?.toJson());
     return auth.currentUser != null;
   }
 
@@ -61,6 +63,7 @@ class AppplicationViewModel extends BaseViewModel {
       to("post", replace: true);
 
       notifyListeners();
+      // ignore: unnecessary_null_comparison
       return authResult != null;
     } on FirebaseAuthException catch (e) {
       setBusy(false);
@@ -82,11 +85,13 @@ class AppplicationViewModel extends BaseViewModel {
 
   Future handleSplashLogic() async {
     Future.delayed(const Duration(seconds: 3), () async {
-      if (!isLoggedIn()) {
+      if (isLoggedIn()) {
+        await _populateCurrentUser(auth.currentUser!);
+        notifyListeners();
         to("home", replace: true);
+      } else {
+        to("login", replace: true);
       }
-      to("login", replace: true);
-      notifyListeners();
     });
   }
 
@@ -94,11 +99,11 @@ class AppplicationViewModel extends BaseViewModel {
     String? toRoute;
 
     switch (route) {
-      case "post":
-        toRoute = PostHomeView.routName;
-        break;
       case "home":
         toRoute = HomeView.routName;
+        break;
+      case "createPost":
+        toRoute = CreatePostView.routName;
         break;
       case "login":
         toRoute = LoginView.routName;
@@ -113,6 +118,7 @@ class AppplicationViewModel extends BaseViewModel {
   }
 
   Future _populateCurrentUser(User user) async {
+    // ignore: unnecessary_null_comparison
     if (user != null) {
       _currentUser = await _fireStoreService.getUser(user.uid);
     }
