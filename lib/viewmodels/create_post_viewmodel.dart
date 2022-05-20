@@ -13,12 +13,12 @@ class CreatePostViewModel extends BaseModel {
       locator<MyNavigationServices>();
 
   Post? _edittingPost;
-  bool get editing => _edittingPost != null;
+  bool get _editting => _edittingPost != null;
   Future addPost(String title, String message) async {
     dynamic result;
 
     setBusy(true);
-    if (!editing) {
+    if (!_editting) {
       result = await _fireStoreService.addPost(Post(
         userId: currentUser!.id,
         message: message,

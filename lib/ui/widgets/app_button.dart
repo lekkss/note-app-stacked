@@ -20,7 +20,7 @@ class AppButton extends StatefulWidget {
     this.busy = false,
     this.enabled = true,
     this.color = primaryColor,
-    this.padding = const EdgeInsets.symmetric(horizontal: 15, vertical: 17),
+    this.padding = const EdgeInsets.symmetric(horizontal: 80, vertical: 17),
     this.titleColor = Colors.white,
     this.borderRadius = 10,
     this.borderSide = BorderSide.none,

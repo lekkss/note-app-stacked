@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/ui/shared/app_colors.dart';
 import 'package:note_app/ui/shared/ui_helpers.dart';
+import 'package:note_app/ui/widgets/app_button.dart';
 import 'package:note_app/ui/widgets/input.dart';
 import 'package:note_app/viewmodels/application_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -18,8 +19,8 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
 
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(text: "test@test.com");
+  final _passwordController = TextEditingController(text: "123lekan");
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AppplicationViewModel>.reactive(
@@ -29,7 +30,9 @@ class _LoginViewState extends State<LoginView> {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text("Hello"),
+            title: const Text(
+              "Login",
+            ),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -67,66 +70,28 @@ class _LoginViewState extends State<LoginView> {
                           hintText: "Password",
                           textController: _passwordController,
                         ),
-                        verticalSpaceLarge,
-                        verticalSpaceLarge,
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            border: Border.all(
-                              width: 3,
-                              color: primaryColor,
-                            ),
-                            color: primaryColor,
-                          ),
-                          child: MaterialButton(
-                              child: model.isBusy
-                                  ? const CircularProgressIndicator(
-                                      color: Colors.blue,
-                                    )
-                                  : const Text(
-                                      "login",
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.white),
-                                    ),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  debugPrint("gone");
-
-                                  model.login(_emailController.text,
-                                      _passwordController.text);
-                                }
-                              }),
+                        verticalSpace(60),
+                        AppButton(
+                          busy: model.isBusy,
+                          title: "login",
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              model.login(_emailController.text,
+                                  _passwordController.text);
+                            }
+                            debugPrint("worked");
+                          },
                         ),
-                        // Container(
-                        //   child: model.isBusy
-                        //       ? const Text("getting")
-                        //       : !model.isLoggedIn()
-                        //           ? const Text("not usee")
-                        //           : const Text("got"),
-                        // ),
                         verticalSpaceLarge,
-                        const Text("Already have an account? "),
+                        const Text("Don't have an account? "),
                         verticalSpaceMedium,
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 3,
-                              color: primaryColor,
-                            ),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: MaterialButton(
-                              child: const Text(
-                                "signup",
-                                style: TextStyle(
-                                    fontSize: 16, color: primaryColor),
-                              ),
-                              onPressed: () {
-                                model.to("signup", replace: true);
-                              }),
-                        ),
+                        AppButton(
+                            color: Colors.white,
+                            titleColor: primaryColor,
+                            title: "signup",
+                            onPressed: () {
+                              model.to("signup", replace: true);
+                            }),
                       ],
                     ),
                   ),

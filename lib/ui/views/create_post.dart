@@ -26,7 +26,7 @@ class _CreatePostViewState extends State<CreatePostView> {
       viewModelBuilder: () => locator<CreatePostViewModel>(),
       onModelReady: (model) {
         _titleController.text = editingPost?.title ?? "";
-        _messageController.text = editingPost?.message ?? "";
+        // _messageController.text = editingPost?.message ?? "";
 
         // model.setEdittingPost(editingPost!);
       },
@@ -34,7 +34,7 @@ class _CreatePostViewState extends State<CreatePostView> {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Home"),
+            title: const Text("Add Post"),
             actions: [
               !model.isLogged
                   ? Container()
@@ -74,7 +74,6 @@ class _CreatePostViewState extends State<CreatePostView> {
                           }
                           return null;
                         },
-                        maxLines: 5,
                         controller: _messageController,
                         decoration: const InputDecoration(
                           hintText: "message",

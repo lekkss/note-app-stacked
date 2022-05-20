@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/ui/shared/ui_helpers.dart';
+import 'package:note_app/ui/widgets/app_button.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../locator.dart';
 import '../../viewmodels/application_view_model.dart';
+import '../shared/app_colors.dart';
 import '../widgets/app_text.dart';
+import '../widgets/input.dart';
 
 class SignupView extends StatefulWidget {
   static const routName = "/signup";
@@ -28,76 +32,77 @@ class _SignupViewState extends State<SignupView> {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
+            elevation: 0,
             centerTitle: true,
-            title: const Text("Hello"),
+            title: const Text(
+              "Signin",
+            ),
           ),
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter something';
-                          }
-                          return null;
-                        },
-                        controller: _emailController,
-                        decoration: const InputDecoration(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 12,
+                right: 12,
+              ),
+              child: Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Input(
+                          textController: _emailController,
                           hintText: "Email",
+                          borderRadius: 25,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter Email';
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter something';
-                          }
-                          return null;
-                        },
-                        controller: _passwordController,
-                        decoration: const InputDecoration(
+                        verticalSpace(10),
+                        Input(
+                          textController: _passwordController,
                           hintText: "Password",
+                          borderRadius: 25,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter Password';
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter something';
-                          }
-                          return null;
-                        },
-                        controller: _lNameController,
-                        decoration: const InputDecoration(
+                        verticalSpace(10),
+                        Input(
+                          textController: _lNameController,
                           hintText: "Last Name",
+                          borderRadius: 25,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter Last Name';
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter something';
-                          }
-                          return null;
-                        },
-                        controller: _fNameController,
-                        decoration: const InputDecoration(
-                          hintText: "First NAme",
+                        verticalSpace(10),
+                        Input(
+                          textController: _fNameController,
+                          hintText: "First Name",
+                          borderRadius: 25,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter First Name';
+                            }
+                            return null;
+                          },
                         ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: Colors.red,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: MaterialButton(
-                            child: AppText.headingThree(
-                              "Signup",
-                            ),
+                        verticalSpaceLarge,
+                        verticalSpace(40),
+                        AppButton(
+                            busy: model.isBusy,
+                            title: "signup",
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 debugPrint("Sign up screen");
@@ -110,32 +115,21 @@ class _SignupViewState extends State<SignupView> {
                                 debugPrint("not ok");
                               }
                             }),
-                      ),
-                      Container(
-                        child: model.isBusy
-                            ? const Text("getting")
-                            : const Text("got"),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: Colors.red,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: MaterialButton(
-                            child: AppText.headingThree(
-                              "Login",
-                            ),
+                        verticalSpaceLarge,
+                        const Text("Already have an account? "),
+                        verticalSpaceMedium,
+                        AppButton(
+                            color: Colors.white,
+                            titleColor: primaryColor,
+                            title: "login",
                             onPressed: () {
                               model.to("login", replace: true);
                             }),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );

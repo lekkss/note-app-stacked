@@ -20,8 +20,8 @@ class AppplicationViewModel extends BaseViewModel {
   Users? get currentUser => _currentUser;
   final auth = FirebaseAuth.instance;
   bool isLoggedIn() {
-    print(auth.currentUser.toString());
-    print(_currentUser?.toJson());
+    debugPrint(auth.currentUser.toString());
+    debugPrint(_currentUser?.toJson().toString());
     return auth.currentUser != null;
   }
 
@@ -41,7 +41,7 @@ class AppplicationViewModel extends BaseViewModel {
           lastName: lastName);
 
       await _fireStoreService.createUser(_currentUser!);
-      to("post", replace: true);
+      to("home", replace: true);
       notifyListeners();
       return authResult.user != null;
     } on FirebaseException catch (e) {
@@ -60,7 +60,7 @@ class AppplicationViewModel extends BaseViewModel {
       await _populateCurrentUser(authResult.user!);
       setBusy(false);
 
-      to("post", replace: true);
+      to("home", replace: true);
 
       notifyListeners();
       // ignore: unnecessary_null_comparison

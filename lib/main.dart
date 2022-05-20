@@ -6,6 +6,7 @@ import 'package:note_app/firebase_options.dart';
 import 'package:note_app/locator.dart';
 import 'package:note_app/routes.dart';
 import 'package:note_app/services/navigation_services.dart';
+import 'package:note_app/ui/shared/app_colors.dart';
 import 'package:note_app/ui/views/splash.dart';
 
 void main() async {
@@ -39,9 +40,10 @@ class MyApp extends StatelessWidget {
       // ),
       navigatorKey: locator<MyNavigationServices>().naigatorKey,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.notoSansTextTheme(),
-      ),
+          primarySwatch: Colors.orange,
+          primaryColor: primaryColor,
+          textTheme: GoogleFonts.notoSansTextTheme(),
+          hintColor: primaryColor),
       routes: appRoutes,
       onUnknownRoute: (settings) {
         return MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/models/post.dart';
 import 'package:note_app/ui/shared/app_colors.dart';
 import 'package:note_app/viewmodels/home_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -17,6 +18,7 @@ class HomeView extends StatelessWidget {
         onModelReady: (model) => model.listenToPosts(),
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
+                centerTitle: true,
                 title: const Text("Your Post"),
                 actions: [
                   !model.isLogged
@@ -33,40 +35,64 @@ class HomeView extends StatelessWidget {
                 onPressed: model.navigateToCreateView,
                 child: const Icon(Icons.add),
               ),
-              body: Column(
-                children: [
-                  model.post != null
-                      ? ListView.builder(
+              body: model.post != null
+                  ? Column(
+                      children: [
+                        GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 200,
+                                  childAspectRatio: 3 / 2,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10),
                           shrinkWrap: true,
                           itemCount: model.post!.length,
-                          itemBuilder: ((context, index) => GestureDetector(
-                                onTap: () {
-                                  debugPrint("Tapped ${index + 1}");
-                                  model.deletePost(index);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                          itemBuilder: ((context, index) {
+                            Post post = model.post![index];
+                            return GestureDetector(
+                              onTap: () {
+                                debugPrint("Tapped ${index + 1}");
+                                // model.deletePost(index);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Dismissible(
+                                  key: ValueKey<String?>(post.documentId),
+                                  onDismissed: (direction) => {
+                                    model.deletePost(index),
+                                    debugPrint("deleted")
+                                  },
                                   child: Container(
-                                    decoration: const BoxDecoration(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
                                         color: primaryColor),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           // Text(post!.title)
                                           Text(
-                                              "Posts title:  ${model.post![index].title}"),
+                                            "Posts title:  \n${model.post![index].title}",
+                                          ),
                                           Text(
-                                              "Posts message:  ${model.post![index].message}"),
+                                            "Posts message: \n${model.post![index].message.substring(0, 5)}...",
+                                          ),
                                         ],
                                       ),
                                     ),
                                   ),
                                 ),
-                              )))
-                      : const CircularProgressIndicator()
-                ],
-              ),
+                              ),
+                            );
+                          }),
+                        )
+                      ],
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    ),
             ));
   }
 }
