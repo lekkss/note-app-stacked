@@ -52,6 +52,7 @@ class HomeView extends StatelessWidget {
                             return GestureDetector(
                               onTap: () {
                                 debugPrint("Tapped ${index + 1}");
+                                model.editPost(index);
                                 // model.deletePost(index);
                               },
                               child: Padding(

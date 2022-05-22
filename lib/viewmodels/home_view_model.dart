@@ -1,6 +1,7 @@
 import 'package:note_app/models/post.dart';
 import 'package:note_app/services/navigation_services.dart';
 import 'package:note_app/ui/views/create_post.dart';
+import 'package:note_app/ui/views/edit_post.dart';
 import 'package:note_app/viewmodels/base_model.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -52,7 +53,7 @@ class HomeViewModel extends BaseModel {
   }
 
   void editPost(int index) {
-    _navigationService.navigateTo(CreatePostView.routName,
+    _navigationService.navigateTo(EditPostView.routName,
         arguments: _post![index]);
   }
 }
