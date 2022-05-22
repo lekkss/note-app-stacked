@@ -12,7 +12,7 @@ class HomeViewModel extends BaseModel {
   final MyNavigationServices _navigationService =
       locator<MyNavigationServices>();
   final FireStoreService _fireStoreService = locator<FireStoreService>();
-  final DialogService _dialogService = locator<DialogService>();
+  final DialogService dialogService = locator<DialogService>();
 
   List<Post>? _post;
   List<Post>? get post => _post;
@@ -32,20 +32,20 @@ class HomeViewModel extends BaseModel {
   }
 
   Future deletePost(int index) async {
-    var dialogResponse = await _dialogService.showConfirmationDialog(
-      title: 'Are you sure?',
-      description: 'Do you really want to delete the post?',
-      confirmationTitle: 'Yes',
-      cancelTitle: 'No',
-    );
+    // var dialogResponse = await dialogService.showConfirmationDialog(
+    //   title: 'Are you sure?',
+    //   description: 'Do you really want to delete the post?',
+    //   confirmationTitle: 'Yes',
+    //   cancelTitle: 'No',
+    // );
 
-    if (dialogResponse!.confirmed) {
-      var postToDelete = _post![index];
-      setBusy(true);
-      await _fireStoreService.deletePost(postToDelete.documentId!);
-      // Delete the image after the post is deleted
-      setBusy(false);
-    }
+    // if (dialogResponse!.confirmed) {
+    var postToDelete = _post![index];
+    setBusy(true);
+    await _fireStoreService.deletePost(postToDelete.documentId!);
+    // Delete the image after the post is deleted
+    setBusy(false);
+    // }
   }
 
   Future navigateToCreateView() async {

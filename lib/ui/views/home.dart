@@ -59,6 +59,18 @@ class HomeView extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Dismissible(
                                   key: ValueKey<String?>(post.documentId),
+                                  confirmDismiss: (DismissDirection dir) async {
+                                    var dialogResponse = await model
+                                        .dialogService
+                                        .showConfirmationDialog(
+                                      title: 'Are you sure?',
+                                      description:
+                                          'Do you really want to delete the post?',
+                                      confirmationTitle: 'Yes',
+                                      cancelTitle: 'No',
+                                    );
+                                    return dialogResponse?.confirmed;
+                                  },
                                   onDismissed: (direction) => {
                                     model.deletePost(index),
                                     debugPrint("deleted")
