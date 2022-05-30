@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/models/post.dart';
-import 'package:note_app/viewmodels/edit_post_view_model.dart';
+import 'package:note_app/viewmodels/post_viewmodel.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../locator.dart';
@@ -25,8 +25,8 @@ class _EditPostViewState extends State<EditPostView> {
   final _messageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<EditPostViewModel>.reactive(
-      viewModelBuilder: () => locator<EditPostViewModel>(),
+    return ViewModelBuilder<PostViewModel>.reactive(
+      viewModelBuilder: () => locator<PostViewModel>(),
       onModelReady: (model) {
         post = ModalRoute.of(context)!.settings.arguments as Post;
         _titleController.text = post.title;
