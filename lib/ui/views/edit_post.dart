@@ -31,9 +31,6 @@ class _EditPostViewState extends State<EditPostView> {
         post = ModalRoute.of(context)!.settings.arguments as Post;
         _titleController.text = post.title;
         _messageController.text = post.message;
-        // _messageController.text = editingPost?.message ?? "";
-
-        // model.setEdittingPost(editingPost!);
       },
       disposeViewModel: false,
       builder: (context, model, child) {

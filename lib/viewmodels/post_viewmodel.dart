@@ -18,19 +18,13 @@ class PostViewModel extends BaseModel {
     dynamic result;
 
     setBusy(true);
-    if (!_editting) {
-      result = await _fireStoreService.addPost(Post(
-        userId: currentUser!.id,
-        message: message,
-        title: title,
-      ));
-    } else {
-      result = await _fireStoreService.updatePost(Post(
-        userId: _edittingPost!.userId,
-        message: message,
-        title: title,
-      ));
-    }
+
+    result = await _fireStoreService.addPost(Post(
+      userId: currentUser!.id,
+      message: message,
+      title: title,
+    ));
+
     setBusy(false);
     if (result is String) {
       await _dialogService.showDialog(

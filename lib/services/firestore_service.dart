@@ -56,6 +56,17 @@ class FireStoreService {
     }
   }
 
+  Future updatePost(Post post) async {
+    try {
+      await _postsCollectionReference.doc(post.documentId).update(post.toMap());
+    } catch (e) {
+      if (e is PlatformException) {
+        return e.message;
+      }
+      return e.toString();
+    }
+  }
+
   Future deletePost(String documentId) async {
     try {
       await _postsCollectionReference.doc(documentId).delete();
@@ -107,16 +118,5 @@ class FireStoreService {
     });
 
     return _postsController.stream;
-  }
-
-  Future updatePost(Post post) async {
-    try {
-      await _postsCollectionReference.doc(post.documentId).update(post.toMap());
-    } catch (e) {
-      if (e is PlatformException) {
-        return e.message;
-      }
-      return e.toString();
-    }
   }
 }

@@ -32,14 +32,6 @@ class HomeViewModel extends BaseModel {
   }
 
   Future deletePost(int index) async {
-    // var dialogResponse = await dialogService.showConfirmationDialog(
-    //   title: 'Are you sure?',
-    //   description: 'Do you really want to delete the post?',
-    //   confirmationTitle: 'Yes',
-    //   cancelTitle: 'No',
-    // );
-
-    // if (dialogResponse!.confirmed) {
     var postToDelete = _post![index];
     setBusy(true);
     await _fireStoreService.deletePost(postToDelete.documentId!);

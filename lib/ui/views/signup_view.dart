@@ -6,7 +6,6 @@ import 'package:stacked/stacked.dart';
 import '../../locator.dart';
 import '../../viewmodels/application_view_model.dart';
 import '../shared/app_colors.dart';
-import '../widgets/app_text.dart';
 import '../widgets/input.dart';
 
 class SignupView extends StatefulWidget {
